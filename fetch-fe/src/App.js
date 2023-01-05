@@ -16,6 +16,9 @@ class Form extends React.Component {
       nameError: '',
       passwordError: '',
       emailError: '',
+      stateError: '',
+      occupationError: '',
+      
     };
   }
 
@@ -23,6 +26,8 @@ class Form extends React.Component {
     let nameError = '';
     let emailError = '';
     let passwordError = '';
+    let stateError = '';
+    let occupationError = '';
 
     if (this.state.name.length < 1) {
       nameError = 'Name cannot be blank';
@@ -38,8 +43,16 @@ class Form extends React.Component {
       passwordError = 'Password must be at least 6 characters';
     }
 
+    if (!this.state.state) {
+      stateError = 'State cannot be blank';
+    }
+
+    if (!this.state.occupation) {
+      occupationError = 'Occupation cannot be blank'
+    }
+
     if (emailError || nameError || passwordError) {
-      this.setState({ emailError, nameError, passwordError });
+      this.setState({ emailError, nameError, passwordError, stateError, occupationError });
       return false;
     }
 
@@ -59,6 +72,8 @@ class Form extends React.Component {
         nameError: '',
         emailError: '',
         passwordError: '',
+        occupationError: '',
+        stateError: '',
       });
     }
   };
@@ -73,35 +88,59 @@ class Form extends React.Component {
     return (
       <div className="centered">
       <form className="form" onSubmit={this.handleSubmit}>
-        <div>
-          <input
+        <div className="title">Welcome</div>
+        <div className="subtitle">Let's create your account!</div>
+        <div className="input-container ic1">
+          <input className="input"
             name="name"
             placeholder="Name"
             value={this.state.name}
             onChange={this.handleChange}
           />
-          <div>{this.state.nameError}</div>
+          <div className="error">{this.state.nameError}</div>
         </div>
-        <div>
-          <input
+        <div className ="input-container ic2">
+          <input className="input"
             name="email"
             placeholder="Email"
             value={this.state.email}
             onChange={this.handleChange}
           />
-          <div>{this.state.emailError}</div>
+          <div className="error">{this.state.emailError}</div>
         </div>
-        <div>
-          <input
+        <div className="input-container ic2">
+          <input className="input"
             type="password"
             name="password"
             placeholder="Password"
             value={this.state.password}
             onChange={this.handleChange}
           />
-          <div>{this.state.passwordError}</div>
+          <div className="error">{this.state.passwordError}</div>
         </div>
-        <button type="submit">Submit</button>
+
+        <div className="input-container ic2">
+          <input className="input"
+            name="occupation"
+            placeholder="Occupation"
+            value={this.state.occupation}
+            onChange={this.handleChange}
+          />
+          <div className="error">{this.state.occupationError}</div>
+        </div><div className="input-container ic2">
+          <input className="input"
+            name="state"
+            placeholder="State"
+            value={this.state.state}
+            onChange={this.handleChange}
+          />
+          <div className="error">{this.state.stateError}</div>
+        </div>
+
+        <div className="input-container ic1">
+        <button className="submit" type="submit">Submit</button>
+        </div>
+        
       </form>
       </div>
     );
