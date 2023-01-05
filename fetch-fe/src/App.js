@@ -18,9 +18,24 @@ class Form extends React.Component {
       emailError: '',
       stateError: '',
       occupationError: '',
-      
+      theOccupations: [],
+      theStates: [],
     };
+
+    this.populateArrays();
   }
+
+  populateArrays = async () => {
+    // console.log('rest api called');
+    const response = await fetch("https://frontend-take-home.fetchrewards.com/form");
+    const jsonResponse = await response.json();
+    console.log(jsonResponse);
+
+    this.theOccupations = jsonResponse.occupations;
+    this.theStates = jsonResponse.states;
+    // console.log(this.theOccupations);
+    // console.log(this.theStates);
+  };
 
   validateForm = () => {
     let nameError = '';
@@ -48,6 +63,7 @@ class Form extends React.Component {
     }
 
     if (!this.state.occupation) {
+      console.log(this.theOccupations);
       occupationError = 'Occupation cannot be blank'
     }
 
@@ -87,103 +103,73 @@ class Form extends React.Component {
   render() {
     return (
       <div className="centered">
-      <form className="form" onSubmit={this.handleSubmit}>
-        <div className="title">Welcome</div>
-        <div className="subtitle">Let's create your account!</div>
-        <div className="input-container ic1">
-          <input className="input"
-            name="name"
-            placeholder="Name"
-            value={this.state.name}
-            onChange={this.handleChange}
-          />
-          <div className="error">{this.state.nameError}</div>
-        </div>
-        <div className ="input-container ic2">
-          <input className="input"
-            name="email"
-            placeholder="Email"
-            value={this.state.email}
-            onChange={this.handleChange}
-          />
-          <div className="error">{this.state.emailError}</div>
-        </div>
-        <div className="input-container ic2">
-          <input className="input"
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.handleChange}
-          />
-          <div className="error">{this.state.passwordError}</div>
-        </div>
+        <form className="form" onSubmit={this.handleSubmit}>
+          <div className="title">Welcome</div>
+          <div className="subtitle">Let's create your account!</div>
 
-        <div className="input-container ic2">
-          <input className="input"
-            name="occupation"
-            placeholder="Occupation"
-            value={this.state.occupation}
-            onChange={this.handleChange}
-          />
-          <div className="error">{this.state.occupationError}</div>
-        </div><div className="input-container ic2">
-          <input className="input"
-            name="state"
-            placeholder="State"
-            value={this.state.state}
-            onChange={this.handleChange}
-          />
-          <div className="error">{this.state.stateError}</div>
-        </div>
+          {/* name  */}
+          <div className="input-container ic1">
+            <input className="input"
+              name="name"
+              placeholder="Name"
+              value={this.state.name}
+              onChange={this.handleChange}
+            />
+            <div className="error">{this.state.nameError}</div>
+          </div>
+          {/* email */}
+          <div className="input-container ic2">
+            <input className="input"
+              name="email"
+              placeholder="Email"
+              value={this.state.email}
+              onChange={this.handleChange}
+            />
+            <div className="error">{this.state.emailError}</div>
+          </div>
 
-        <div className="input-container ic1">
-        <button className="submit" type="submit">Submit</button>
-        </div>
-        
-      </form>
+          {/* password */}
+          <div className="input-container ic2">
+            <input className="input"
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={this.state.password}
+              onChange={this.handleChange}
+            />
+            <div className="error">{this.state.passwordError}</div>
+          </div>
+
+          {/* occupation */}
+          <div className="input-container ic2">
+            <input className="input"
+              name="occupation"
+              placeholder="Occupation"
+              value={this.state.occupation}
+              onChange={this.handleChange}
+            />
+            <div className="error">{this.state.occupationError}</div>
+          </div>
+
+          {/* state */}
+          <div className="input-container ic2">
+            <input className="input"
+              name="state"
+              placeholder="State"
+              value={this.state.state}
+              onChange={this.handleChange}
+            />
+            <div className="error">{this.state.stateError}</div>
+          </div>
+
+          {/* submit */}
+          <div className="input-container ic1">
+            <button className="submit" type="submit">Submit</button>
+          </div>
+        </form>
       </div>
     );
   }
 }
 
 export default Form;
-
-// function App() {
-
-//   // const [inputs, setInputs] = useState({});
-
-
-//   const handleChange = (event) => {
-//     const name = event.target.name;
-//     const value = event.target.value;
-//   }
-
-
-//   const handleSumbit = (event) => {
-
-//   }
-//   function handleSubmit() {
-//     var x = document.forms["myForm"]["name"].value;
-//     if (x == "") {
-//       alert("Name must be filled out");
-//       return false;
-//     }
-//   }
-//   return (
-//     <div className="wrapper centered">
-//       <h1>Fetch FE Form</h1>
-//       <form onSubmit={handleForm()}>
-//         <label className="label"> Full Name:
-//           <input className="input" 
-//            type="text" 
-//            name="name"
-//            onChange={handleChange}/>
-//         </label>
-//         <input type="submit" value="Submit"/>
-//       </form>
-//     </div>
-//   );
-// }
-
-// export default App;
