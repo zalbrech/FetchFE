@@ -1,7 +1,6 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import MyModal from './MyModal';
 
 
 class MyForm extends React.Component {
@@ -18,31 +17,26 @@ class MyForm extends React.Component {
             emailError: '',
             stateError: '',
             occupationError: '',
-            show: false,
+            theData: {
+                occupations: [],
+                states: [
+                    {
+                        name: '',
+                        abbreviation: '',
+                    }
+                ]
+            },
         };
-
-        this.occupations = {};
-        this.states = {};
-
-        console.log('in constructor');
-
-        this.populateArrays();
     }
 
-    populateArrays = async () => {
-        // console.log('rest api called');
-        const response = await fetch("https://frontend-take-home.fetchrewards.com/form");
-        const jsonResponse = await response.json();
-        console.log(jsonResponse);
-
-        this.theOccupations = jsonResponse.occupations;
-        this.theStates = jsonResponse.states;
-        // console.log(this.theOccupations);
-        // console.log(this.theStates);
-    };
+    componentDidMount() {
+        fetch("https://frontend-take-home.fetchrewards.com/form")
+            .then(res => res.json())
+            .then((data) =>
+                this.setState({ theData: data }));
+    }
 
     validateForm = () => {
-        console.log('validate form');
         let nameError = '';
         let emailError = '';
         let passwordError = '';
@@ -50,35 +44,27 @@ class MyForm extends React.Component {
         let occupationError = '';
 
         if (this.state.name.length < 1) {
-            console.log("name error")
-            // console.log(this.state.name);
+            // console.log("name error")
             nameError = 'Name cannot be blank';
         }
 
-        // PLACEHOLDER
         if (!this.state.email.includes('@')) {
-            console.log("email error")
-
+            // console.log("email error")
             emailError = 'Invalid email';
         }
 
-        // PLACEHOLDER
         if (this.state.password.length < 6) {
-            console.log("password error")
-
+            // console.log("password error")
             passwordError = 'Password must be at least 6 characters';
         }
 
         if (!this.state.state) {
-            console.log("state error")
-
+            // console.log("state error")
             stateError = 'State cannot be blank';
         }
 
         if (!this.state.occupation) {
-            console.log("occupation error")
-
-            // console.log(this.theOccupations);
+            // console.log("occupation error")
             occupationError = 'Occupation cannot be blank'
         }
 
@@ -92,47 +78,57 @@ class MyForm extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        // console.log("handle submit");
         const isValid = this.validateForm();
-        // console.log(isValid);
         if (isValid) {
+            const myObj = {
+                "name": this.state.name,
+                "email": this.state.email,
+                "password": this.state.password,
+                "occupation": this.state.occupation,
+                "state": this.state.state,
+            }
 
-            alert('Form submission successful!');
-            // clear form on successful submit
-            this.setState({
-                name: '',
-                email: '',
-                password: '',
-                occupation: '',
-                state: '',
-                nameError: '',
-                emailError: '',
-                passwordError: '',
-                occupationError: '',
-                stateError: '',
-            });
+            console.log(myObj);
 
-            // console.log(this.state.name);
-            // this.openModal();
+            fetch('https://frontend-take-home.fetchrewards.com/form', {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(myObj)
+            }).then((response) => {
+                if (!response.ok) {
+                    throw new Error(response.status);
+                }
+            }).then(() => {
+                alert('Form submission successful!')
+                // clear form only on successful submit
+                this.setState({
+                    name: '',
+                    email: '',
+                    password: '',
+                    occupation: '',
+                    state: '',
+                    nameError: '',
+                    emailError: '',
+                    passwordError: '',
+                    occupationError: '',
+                    stateError: '',
+                });
+            }).
+                catch((error) => {
+                    console.log('error: ' + error);
+                    alert('Something went wrong!');
+                });
         }
     };
 
     handleChange = (event) => {
-        // console.log(event)
-        // console.log(event.target.value);
         this.setState({
             [event.target.name]: event.target.value
         });
     };
 
-
-    openModal() {
-        console.log('opening modal');
-        this.setState({ show: true });
-    }
-
-
     render() {
+        const { theData } = this.state;
         return (
             <div className="h-100 justify-content-center align-items-center form">
                 <div className="title">Welcome</div>
@@ -191,9 +187,11 @@ class MyForm extends React.Component {
                             value={this.state.occupation}
                             onChange={this.handleChange} isInvalid={this.state.occupationError}>
                             <option>-- Select Occupation --</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            {theData.occupations.map((item, i) => (
+                                <option key={i} value={i}>
+                                    {item}
+                                </option>
+                            ))}
                         </Form.Select>
                         <Form.Control.Feedback type="invalid">
                             Please select an occupation
@@ -207,9 +205,11 @@ class MyForm extends React.Component {
                             value={this.state.state}
                             onChange={this.handleChange} isInvalid={this.state.stateError}>
                             <option>-- Select State of residence --</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            {theData.states.map((item, i) => (
+                                <option key={i} value={i}>
+                                    {item.name}
+                                </option>
+                            ))}
                         </Form.Select>
                         <Form.Control.Feedback type="invalid">
                             Please enter a state
@@ -222,11 +222,8 @@ class MyForm extends React.Component {
                         Submit
                     </Button>
                 </Form>
-                {this.state.show && <MyModal/>}
-                {/* <MyModal show={this.state.show}/> */}
             </div>
         )
     }
 }
-
 export default MyForm
