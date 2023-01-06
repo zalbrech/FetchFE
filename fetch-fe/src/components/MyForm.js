@@ -29,6 +29,7 @@ class MyForm extends React.Component {
         };
     }
 
+
     // retrieve data from API to populate dropdown menus
     componentDidMount() {
         fetch("https://frontend-take-home.fetchrewards.com/form")
@@ -53,12 +54,14 @@ class MyForm extends React.Component {
         let stateError = '';
         let occupationError = '';
 
+        const emailRegex = new RegExp('\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b');
+
         if (this.state.name.length < 1) {
             // console.log("name error")
             nameError = 'Name cannot be blank';
         }
 
-        if (!this.state.email.includes('@')) {
+        if (!emailRegex.test(this.state.email)) {
             // console.log("email error")
             emailError = 'Invalid email';
         }
@@ -68,12 +71,12 @@ class MyForm extends React.Component {
             passwordError = 'Password must be at least 6 characters';
         }
 
-        if (!this.state.state || this.state.state == '-- Select State of residence --') {
+        if (!this.state.state || this.state.state === '-- Select State of residence --') {
             // console.log("state error")
             stateError = 'State cannot be blank';
         }
 
-        if (!this.state.occupation || this.state.occupation == '-- Select Occupation --') {
+        if (!this.state.occupation || this.state.occupation === '-- Select Occupation --') {
             // console.log("occupation error")
             occupationError = 'Occupation cannot be blank'
         }
@@ -123,11 +126,10 @@ class MyForm extends React.Component {
                     occupationError: '',
                     stateError: '',
                 });
-            }).
-                catch((error) => {
-                    console.log('error: ' + error);
-                    alert('Something went wrong!');
-                });
+            }).catch((error) => {
+                console.log('error: ' + error);
+                alert('Something went wrong!');
+            });
         }
     };
 
@@ -193,7 +195,7 @@ class MyForm extends React.Component {
                     {/* occupation */}
                     <Form.Group className="ic2" >
                         <Form.Label className="text-white">Occupation</Form.Label>
-                        <Form.Control as="select" name="occupation" 
+                        <Form.Control as="select" name="occupation"
                             className="text-center"
                             value={this.state.occupation}
                             onChange={this.handleChange} isInvalid={this.state.occupationError}>
