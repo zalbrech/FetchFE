@@ -29,6 +29,7 @@ class MyForm extends React.Component {
         };
     }
 
+    // retrieve data from API to populate dropdown menus
     componentDidMount() {
         fetch("https://frontend-take-home.fetchrewards.com/form")
             .then(res => res.json())
@@ -36,6 +37,7 @@ class MyForm extends React.Component {
                 this.setState({ theData: data }));
     }
 
+    // check form for missing/incorrect fields. If any errors are found, the form will not submit
     validateForm = () => {
         let nameError = '';
         let emailError = '';
