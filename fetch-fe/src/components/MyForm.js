@@ -1,6 +1,8 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import MyModal from './MyModal';
+
 
 class MyForm extends React.Component {
     constructor(props) {
@@ -16,8 +18,6 @@ class MyForm extends React.Component {
             emailError: '',
             stateError: '',
             occupationError: '',
-            // theOccupations: [],
-            // theStates: [],
         };
 
         this.occupations = {};
@@ -36,8 +36,8 @@ class MyForm extends React.Component {
 
         this.theOccupations = jsonResponse.occupations;
         this.theStates = jsonResponse.states;
-        console.log(this.theOccupations);
-        console.log(this.theStates);
+        // console.log(this.theOccupations);
+        // console.log(this.theStates);
     };
 
     validateForm = () => {
@@ -50,7 +50,7 @@ class MyForm extends React.Component {
 
         if (this.state.name.length < 1) {
             console.log("name error")
-            console.log(this.state.name);
+            // console.log(this.state.name);
             nameError = 'Name cannot be blank';
         }
 
@@ -91,9 +91,9 @@ class MyForm extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log("handle submit");
+        // console.log("handle submit");
         const isValid = this.validateForm();
-        console.log(isValid);
+        // console.log(isValid);
         if (isValid) {
             // clear form on successful submit
             this.setState({
@@ -110,6 +110,7 @@ class MyForm extends React.Component {
             });
 
             console.log(this.state.name);
+            this.openModal();
         }
     };
 
@@ -217,6 +218,7 @@ class MyForm extends React.Component {
                         Submit
                     </Button>
                 </Form>
+                <MyModal />
             </div>
         )
     }
