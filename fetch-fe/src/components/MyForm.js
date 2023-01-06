@@ -39,6 +39,14 @@ class MyForm extends React.Component {
 
     // check form for missing/incorrect fields. If any errors are found, the form will not submit
     validateForm = () => {
+        this.setState({
+            nameError: '',
+            emailError: '',
+            passwordError: '',
+            occupationError: '',
+            stateError: '',
+        });
+
         let nameError = '';
         let emailError = '';
         let passwordError = '';
@@ -60,12 +68,12 @@ class MyForm extends React.Component {
             passwordError = 'Password must be at least 6 characters';
         }
 
-        if (!this.state.state) {
+        if (!this.state.state || this.state.state == '-- Select State of residence --') {
             // console.log("state error")
             stateError = 'State cannot be blank';
         }
 
-        if (!this.state.occupation) {
+        if (!this.state.occupation || this.state.occupation == '-- Select Occupation --') {
             // console.log("occupation error")
             occupationError = 'Occupation cannot be blank'
         }
@@ -185,7 +193,8 @@ class MyForm extends React.Component {
                     {/* occupation */}
                     <Form.Group className="ic2" >
                         <Form.Label className="text-white">Occupation</Form.Label>
-                        <Form.Select name="occupation" className="text-center"
+                        <Form.Control as="select" name="occupation" 
+                            className="text-center"
                             value={this.state.occupation}
                             onChange={this.handleChange} isInvalid={this.state.occupationError}>
                             <option>-- Select Occupation --</option>
@@ -194,7 +203,7 @@ class MyForm extends React.Component {
                                     {item}
                                 </option>
                             ))}
-                        </Form.Select>
+                        </Form.Control>
                         <Form.Control.Feedback type="invalid">
                             Please select an occupation
                         </Form.Control.Feedback>
