@@ -2,7 +2,7 @@ import React from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-class MyForm extends React.Component { 
+class MyForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -94,21 +94,22 @@ class MyForm extends React.Component {
         console.log("handle submit");
         const isValid = this.validateForm();
         console.log(isValid);
-        if(!isValid) {
-            event.stopPropagation();
-        } else {
-            console.log(this.state);
+        if (isValid) {
             // clear form on successful submit
             this.setState({
                 name: '',
                 email: '',
                 password: '',
+                occupation: '',
+                state: '',
                 nameError: '',
                 emailError: '',
                 passwordError: '',
                 occupationError: '',
                 stateError: '',
             });
+
+            console.log(this.state.name);
         }
     };
 
@@ -136,7 +137,11 @@ class MyForm extends React.Component {
                     {/* name */}
                     <Form.Group className="ic1 mb-3" controlId="formBasicEmail" >
                         <Form.Label className="text-white">Name</Form.Label>
-                        <Form.Control  name="name" type="name" placeholder="Enter first and last name" onChange={this.handleChange} isInvalid={this.state.nameError}/>
+                        <Form.Control name="name"
+                            type="name"
+                            value={this.state.name}
+                            placeholder="Enter first and last name"
+                            onChange={this.handleChange} isInvalid={this.state.nameError} />
                         <Form.Control.Feedback type="invalid">
                             Please enter your name
                         </Form.Control.Feedback>
@@ -145,7 +150,11 @@ class MyForm extends React.Component {
                     {/* email */}
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label className="text-white">Email address</Form.Label>
-                        <Form.Control name="email" type="email" placeholder="Enter email" onChange={this.handleChange} isInvalid={this.state.emailError}/>
+                        <Form.Control name="email"
+                            type="email"
+                            value={this.state.email}
+                            placeholder="Enter email"
+                            onChange={this.handleChange} isInvalid={this.state.emailError} />
                         <Form.Text className="text-muted">
                             We'll never share your email with anyone else.
                         </Form.Text>
@@ -157,7 +166,11 @@ class MyForm extends React.Component {
                     {/* password */}
                     <Form.Group className="mb-3" controlId="formBasicPassword" >
                         <Form.Label className="text-white">Password</Form.Label>
-                        <Form.Control name="password" type="password" placeholder="Password" onChange={this.handleChange} isInvalid={this.state.passwordError}/>
+                        <Form.Control name="password"
+                            type="password"
+                            value={this.state.password}
+                            placeholder="Password"
+                            onChange={this.handleChange} isInvalid={this.state.passwordError} />
                         <Form.Text className="text-muted">
                             Passowrd must be at least 6 characters long.
                         </Form.Text>
@@ -169,8 +182,9 @@ class MyForm extends React.Component {
                     {/* occupation */}
                     <Form.Group className="ic2" >
                         <Form.Label className="text-white">Occupation</Form.Label>
-                        <Form.Select name="occupation" className="text-center" 
-                        onChange={this.handleChange} isInvalid={this.state.occupationError}>
+                        <Form.Select name="occupation" className="text-center"
+                            value={this.state.occupation}
+                            onChange={this.handleChange} isInvalid={this.state.occupationError}>
                             <option>-- Select Occupation --</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -184,7 +198,9 @@ class MyForm extends React.Component {
                     {/* state */}
                     <Form.Group className="ic1" >
                         <Form.Label className="text-white">State</Form.Label>
-                        <Form.Select name="state" className="text-center" onChange={this.handleChange} isInvalid={this.state.stateError}>
+                        <Form.Select name="state" className="text-center"
+                            value={this.state.state}
+                            onChange={this.handleChange} isInvalid={this.state.stateError}>
                             <option>-- Select State of residence --</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -198,7 +214,7 @@ class MyForm extends React.Component {
 
                     <Button className="submit"
                         variant="primary" type="submit">
-                            Submit
+                        Submit
                     </Button>
                 </Form>
             </div>
