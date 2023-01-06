@@ -18,6 +18,7 @@ class MyForm extends React.Component {
             emailError: '',
             stateError: '',
             occupationError: '',
+            show: false,
         };
 
         this.occupations = {};
@@ -95,6 +96,8 @@ class MyForm extends React.Component {
         const isValid = this.validateForm();
         // console.log(isValid);
         if (isValid) {
+
+            alert('Form submission successful!');
             // clear form on successful submit
             this.setState({
                 name: '',
@@ -109,8 +112,8 @@ class MyForm extends React.Component {
                 stateError: '',
             });
 
-            console.log(this.state.name);
-            this.openModal();
+            // console.log(this.state.name);
+            // this.openModal();
         }
     };
 
@@ -125,6 +128,7 @@ class MyForm extends React.Component {
 
     openModal() {
         console.log('opening modal');
+        this.setState({ show: true });
     }
 
 
@@ -218,7 +222,8 @@ class MyForm extends React.Component {
                         Submit
                     </Button>
                 </Form>
-                <MyModal />
+                {this.state.show && <MyModal/>}
+                {/* <MyModal show={this.state.show}/> */}
             </div>
         )
     }

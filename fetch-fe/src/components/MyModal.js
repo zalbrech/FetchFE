@@ -1,7 +1,7 @@
 import { Modal, Button } from "react-bootstrap";
 import { useState } from "react";
 function MyModal() {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const [value, setValue] = useState('Please submit feedback if you would like');
 
   const handleClose = () => {
@@ -16,9 +16,9 @@ function MyModal() {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      {/* <Button variant="primary" onClick={handleShow}>
         Launch demo modal
-      </Button>
+      </Button> */}
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
