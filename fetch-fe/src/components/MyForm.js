@@ -2,7 +2,7 @@ import React from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-class MyForm extends React.Component {
+class MyForm extends React.Component { 
     constructor(props) {
         super(props);
         this.state = {
@@ -16,9 +16,12 @@ class MyForm extends React.Component {
             emailError: '',
             stateError: '',
             occupationError: '',
-            theOccupations: [],
-            theStates: [],
+            // theOccupations: [],
+            // theStates: [],
         };
+
+        this.occupations = {};
+        this.states = {};
 
         console.log('in constructor');
 
@@ -33,11 +36,12 @@ class MyForm extends React.Component {
 
         this.theOccupations = jsonResponse.occupations;
         this.theStates = jsonResponse.states;
-        // console.log(this.theOccupations);
-        // console.log(this.theStates);
+        console.log(this.theOccupations);
+        console.log(this.theStates);
     };
 
     validateForm = () => {
+        console.log('validate form');
         let nameError = '';
         let emailError = '';
         let passwordError = '';
@@ -87,10 +91,10 @@ class MyForm extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+        console.log("handle submit");
         const isValid = this.validateForm();
         console.log(isValid);
         if(!isValid) {
-            
             event.stopPropagation();
         } else {
             console.log(this.state);
@@ -117,6 +121,11 @@ class MyForm extends React.Component {
     };
 
 
+    openModal() {
+        console.log('opening modal');
+    }
+
+
     render() {
         return (
             <div className="h-100 justify-content-center align-items-center form">
@@ -127,47 +136,63 @@ class MyForm extends React.Component {
                     {/* name */}
                     <Form.Group className="ic1 mb-3" controlId="formBasicEmail" >
                         <Form.Label className="text-white">Name</Form.Label>
-                        <Form.Control required name="name" type="name" placeholder="Enter first and last name" onChange={this.handleChange}/>
+                        <Form.Control  name="name" type="name" placeholder="Enter first and last name" onChange={this.handleChange} isInvalid={this.state.nameError}/>
+                        <Form.Control.Feedback type="invalid">
+                            Please enter your name
+                        </Form.Control.Feedback>
                     </Form.Group>
 
                     {/* email */}
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label className="text-white">Email address</Form.Label>
-                        <Form.Control required name="email" type="email" placeholder="Enter email" onChange={this.handleChange}/>
+                        <Form.Control name="email" type="email" placeholder="Enter email" onChange={this.handleChange} isInvalid={this.state.emailError}/>
                         <Form.Text className="text-muted">
                             We'll never share your email with anyone else.
                         </Form.Text>
+                        <Form.Control.Feedback type="invalid">
+                            Please enter a valid email
+                        </Form.Control.Feedback>
                     </Form.Group>
 
                     {/* password */}
                     <Form.Group className="mb-3" controlId="formBasicPassword" >
                         <Form.Label className="text-white">Password</Form.Label>
-                        <Form.Control required  name="password" type="password" placeholder="Password" onChange={this.handleChange}/>
+                        <Form.Control name="password" type="password" placeholder="Password" onChange={this.handleChange} isInvalid={this.state.passwordError}/>
                         <Form.Text className="text-muted">
                             Passowrd must be at least 6 characters long.
                         </Form.Text>
+                        <Form.Control.Feedback type="invalid">
+                            Please enter a valid password
+                        </Form.Control.Feedback>
                     </Form.Group>
 
                     {/* occupation */}
                     <Form.Group className="ic2" >
                         <Form.Label className="text-white">Occupation</Form.Label>
-                        <Form.Select required name="occupation" className="text-center" onChange={this.handleChange}>
+                        <Form.Select name="occupation" className="text-center" 
+                        onChange={this.handleChange} isInvalid={this.state.occupationError}>
                             <option>-- Select Occupation --</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </Form.Select>
+                        <Form.Control.Feedback type="invalid">
+                            Please select an occupation
+                        </Form.Control.Feedback>
                     </Form.Group>
 
                     {/* state */}
                     <Form.Group className="ic1" >
                         <Form.Label className="text-white">State</Form.Label>
-                        <Form.Select required name="state" className="text-center" onChange={this.handleChange}>
+                        <Form.Select name="state" className="text-center" onChange={this.handleChange} isInvalid={this.state.stateError}>
                             <option>-- Select State of residence --</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </Form.Select>
+                        <Form.Control.Feedback type="invalid">
+                            Please enter a state
+                        </Form.Control.Feedback>
                     </Form.Group>
 
 
