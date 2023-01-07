@@ -54,19 +54,19 @@ class MyForm extends React.Component {
         let stateError = '';
         let occupationError = '';
 
-        const emailRegex = new RegExp('\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b');
+        const emailRegex = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
-        if (this.state.name.length < 1) {
+        if (!this.state.name) {
             // console.log("name error")
             nameError = 'Name cannot be blank';
         }
 
-        if (!emailRegex.test(this.state.email)) {
-            // console.log("email error")
+        if (!this.state.email || !emailRegex.test(this.state.email)) {
+            console.log("email error")
             emailError = 'Invalid email';
         }
 
-        if (this.state.password.length < 6) {
+        if (!this.state.password || this.state.password.length < 6) {
             // console.log("password error")
             passwordError = 'Password must be at least 6 characters';
         }
@@ -148,7 +148,7 @@ class MyForm extends React.Component {
                 <Form onSubmit={this.handleSubmit}>
 
                     {/* name */}
-                    <Form.Group className="ic1 mb-3" controlId="formBasicEmail" >
+                    <Form.Group className="ic1 mb-3" controlId="formBasicName" >
                         <Form.Label className="text-white">Name</Form.Label>
                         <Form.Control name="name"
                             type="name"
@@ -164,7 +164,7 @@ class MyForm extends React.Component {
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label className="text-white">Email address</Form.Label>
                         <Form.Control name="email"
-                            type="email"
+                            type="text"
                             value={this.state.email}
                             placeholder="Enter email"
                             onChange={this.handleChange} isInvalid={this.state.emailError} />
@@ -195,7 +195,7 @@ class MyForm extends React.Component {
                     {/* occupation */}
                     <Form.Group className="ic2" >
                         <Form.Label className="text-white">Occupation</Form.Label>
-                        <Form.Control as="select" name="occupation"
+                        <Form.Select as="select" name="occupation"
                             className="text-center"
                             value={this.state.occupation}
                             onChange={this.handleChange} isInvalid={this.state.occupationError}>
@@ -205,7 +205,7 @@ class MyForm extends React.Component {
                                     {item}
                                 </option>
                             ))}
-                        </Form.Control>
+                        </Form.Select>
                         <Form.Control.Feedback type="invalid">
                             Please select an occupation
                         </Form.Control.Feedback>
