@@ -62,7 +62,7 @@ class MyForm extends React.Component {
         }
 
         if (!this.state.email || !emailRegex.test(this.state.email)) {
-            console.log("email error")
+            // console.log("email error")
             emailError = 'Invalid email';
         }
 
