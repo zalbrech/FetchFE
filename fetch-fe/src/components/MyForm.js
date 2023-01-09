@@ -229,11 +229,13 @@ class MyForm extends React.Component {
                         </Form.Control.Feedback>
                     </Form.Group>
 
+                    <div className="bottom">
+                        <Button className="submit"
+                            variant="primary" type="submit">
+                            Submit
+                        </Button>
+                    </div>
 
-                    <Button className="submit"
-                        variant="primary" type="submit">
-                        Submit
-                    </Button>
                 </Form>
             </div>
         )

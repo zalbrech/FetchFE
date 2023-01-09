@@ -3,9 +3,8 @@ import MyForm from './components/MyForm'
 
 function App() {
   return (
-    <div className="d-flex align-items-center justify-content-center wrapper">
+    <div className="d-flex wrapper vh-100 py-4">
       <MyForm />
-
     </div>
   )
 }
