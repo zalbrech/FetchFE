@@ -3,3 +3,5 @@ This repository is for a basic form written using React and is deployed via GitH
 
 To view the form and interact with it, use the following link: https://zalbrech.github.io/FetchFE/
 
+To view the source code, please use the dev branch
+
