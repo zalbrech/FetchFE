@@ -29,13 +29,41 @@ class MyForm extends React.Component {
         };
     }
 
+    theScheme = "https://";
+    theDomain = "frontend-take-home.fetchrewards.com/";
+    theSubdirectory = "form";
+    headerArray = [
+        {
+            key: "Content-Type",
+            value: "application/json",
+        },
+    ]
+
+    header = {"Content-Type":"application/json"};
+
+
 
     // retrieve data from API to populate dropdown menus
-    componentDidMount() {
-        fetch("https://frontend-take-home.fetchrewards.com/form")
-            .then(res => res.json())
-            .then((data) =>
-                this.setState({ theData: data }));
+
+    async componentDidMount() {
+        try {
+            let response = await fetch(`${this.theScheme}${this.theDomain}${this.theSubdirectory}`);
+
+            if (!response.ok) {
+                throw Error('bad response from ' + `${this.theScheme}${this.theDomain}${this.theSubdirectory}`);
+            }
+
+            let data = await response.json();
+            if (data === undefined || data === null) {
+                throw Error('data is ' + data);
+            } else {
+                this.setState({ theData: data });
+                console.log(this.state.theData);
+            }
+        } catch (error) {
+            console.error(error);
+            // redirect to generic error page here
+        }
     }
 
     // check form for missing/incorrect fields. If any errors are found, the form will not submit
@@ -93,6 +121,8 @@ class MyForm extends React.Component {
         event.preventDefault();
         const isValid = this.validateForm();
         if (isValid) {
+            // could change to array then map to an object
+            // arr[0] = this.state.name
             const myObj = {
                 "name": this.state.name,
                 "email": this.state.email,
@@ -103,41 +133,67 @@ class MyForm extends React.Component {
 
             console.log(myObj);
 
-            fetch('https://frontend-take-home.fetchrewards.com/form', {
-                method: 'POST',
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(myObj)
-            }).then((response) => {
-                if (!response.ok) {
-                    throw new Error(response.status);
+            try {
+                let submitted = this.post(myObj);
+                if(!submitted) {
+                    alert('Something went wrong in handleSubmit()1');
+                } else {
+                    this.clearForm();
+                    alert('Form submission successful');
                 }
-            }).then(() => {
-                alert('Form submission successful!')
-                // clear form only on successful submit
-                this.setState({
-                    name: '',
-                    email: '',
-                    password: '',
-                    occupation: '',
-                    state: '',
-                    nameError: '',
-                    emailError: '',
-                    passwordError: '',
-                    occupationError: '',
-                    stateError: '',
-                });
-            }).catch((error) => {
-                console.log('error: ' + error);
-                alert('Something went wrong!');
-            });
+            } catch(error) {
+                console.error("error in handleSubmit " + error.message);
+                alert('Something went wrong in handleSubmit()2');
+            }
         }
     };
+
+    async post(passedObject) {
+        let theUrl = `${this.theScheme}${this.theDomain}${this.theSubdirectory}`;
+        // console.log(theUrl);
+        let myObj = passedObject;
+        let theHeaders = this.headerArray.reduce(
+            (obj, item) => Object.assign(obj, { [item.key]: item.value }), {});
+
+        try {
+            let response = await fetch(theUrl, {
+                method: 'POST',
+                headers: theHeaders,
+                body: JSON.stringify(myObj),
+            });
+            if(!response.ok) {
+                throw Error("response not ok!");
+            }
+        } catch(error) {
+            console.error("error in post() " + error.message);
+            return false;
+        }
+
+        return true;
+    }
+
+    clearForm() {
+        this.setState({
+            name: '',
+            email: '',
+            password: '',
+            occupation: '',
+            state: '',
+            nameError: '',
+            emailError: '',
+            passwordError: '',
+            occupationError: '',
+            stateError: '',
+        });
+    }
 
     handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         });
     };
+
+
 
     render() {
         const { theData } = this.state;
@@ -195,7 +251,7 @@ class MyForm extends React.Component {
                     {/* occupation */}
                     <Form.Group className="ic2" >
                         <Form.Label className="text-white">Occupation</Form.Label>
-                        <Form.Select as="select" name="occupation"
+                        <Form.Select name="occupation"
                             className="text-center"
                             value={this.state.occupation}
                             onChange={this.handleChange} isInvalid={this.state.occupationError}>
