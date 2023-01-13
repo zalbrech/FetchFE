@@ -99,12 +99,12 @@ class MyForm extends React.Component {
             passwordError = 'Password must be at least 6 characters';
         }
 
-        if (!this.state.state || this.state.state === '-- Select State of residence --') {
+        if (!this.state.state) {
             // console.log("state error")
             stateError = 'State cannot be blank';
         }
 
-        if (!this.state.occupation || this.state.occupation === '-- Select Occupation --') {
+        if (!this.state.occupation) {
             // console.log("occupation error")
             occupationError = 'Occupation cannot be blank'
         }
@@ -255,7 +255,7 @@ class MyForm extends React.Component {
                             className="text-center"
                             value={this.state.occupation}
                             onChange={this.handleChange} isInvalid={this.state.occupationError}>
-                            <option>-- Select Occupation --</option>
+                            <option disabled={this.state.occupation}>-- Select Occupation --</option>
                             {theData.occupations.map((item, i) => (
                                 <option key={i} value={i}>
                                     {item}
@@ -273,7 +273,7 @@ class MyForm extends React.Component {
                         <Form.Select name="state" className="text-center"
                             value={this.state.state}
                             onChange={this.handleChange} isInvalid={this.state.stateError}>
-                            <option>-- Select State of residence --</option>
+                            <option disabled={this.state.state}>-- Select State of residence --</option>
                             {theData.states.map((item, i) => (
                                 <option key={i} value={i}>
                                     {item.name}
