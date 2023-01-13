@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "https://zalbrech.github.io/FetchFE",
-  "type": "module",
   "jest": {
     "verbose": true,
     "testEnvironment": "jsdom"

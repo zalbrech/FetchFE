@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders learn react link 1`] = `
+exports[`renders app snapshot 1`] = `
 <DocumentFragment>
   <div
     class="d-flex wrapper vh-100 py-4"
@@ -158,7 +158,10 @@ exports[`renders learn react link 1`] = `
           class="bottom"
         >
           <button
+            aria-label="formSubmitButton"
             class="submit btn btn-primary"
+            name="formSubmitButton"
+            role="formSubmitButton"
             type="submit"
           >
             Submit

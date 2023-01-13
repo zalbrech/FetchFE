@@ -1,4 +1,6 @@
-import myForm from './components/MyForm.js';
+import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import MyForm from './components/MyForm.js';
 
 const validName = "Joe";
 const validEmail = "thesmile123@gmail.com";
@@ -64,7 +66,7 @@ const badState = {
     state: invalidState,
 }
 
-describe(myForm, () => {
+describe(MyForm, () => {
 
     // const init = () => {
     //     render(
@@ -77,11 +79,16 @@ describe(myForm, () => {
     // }
 
     beforeEach(() => {
+        render(<MyForm/>);
+    });
 
+    test('on init, submit button renders', () => {
+        // const role = screen.g
+        expect(screen.getByRole('formSubmitButton')).toBeInTheDocument();
     });
 
     test("form fields render with initial values", () => {
-        return undefined;
+        
     });
 })
 

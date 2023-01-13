@@ -6,7 +6,6 @@ test('renders app snapshot', () => {
   // const linkElement = screen.getByText(/learn react/i);
   // expect(linkElement).toBeInTheDocument();
 
-  const { asFragment } = render(<App />)
-
-  expect(asFragment(<App />)).toMatchSnapshot()
+  const { asFragment } = render(<App />);
+  expect(asFragment(<App />)).toMatchSnapshot();
 });

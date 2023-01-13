@@ -289,8 +289,10 @@ class MyForm extends React.Component {
                     </Form.Group>
 
                     <div className="bottom">
-                        <Button className="submit"
-                            variant="primary" type="submit">
+                        <Button className="submit" name="formSubmitButton"
+                            variant="primary" type="submit" role="formSubmitButton"
+                            aria-label="formSubmitButton">
+
                             Submit
                         </Button>
                     </div>
