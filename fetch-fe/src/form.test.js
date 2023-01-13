@@ -1,4 +1,4 @@
-import myForm from 'fetch-fe\src\components\MyForm.js';
+import myForm from './components/MyForm.js';
 
 const validName = "Joe";
 const validEmail = "thesmile123@gmail.com";
@@ -11,6 +11,13 @@ const invalidEmail = '123{.co';
 const invalidPassword ='12345';
 const invalidOccupation = ''; // only possible invalid is blank
 const invalidState = ''; // only possible invalid is blank
+
+const theScheme = "https://";
+const theDomain = "frontend-take-home.fetchrewards.com/";
+const theSubdirectory = "form";
+
+const goodUrl = `${theScheme}${theDomain}${theSubdirectory}`;
+const badUrl = `${theScheme}${theSubdirectory}`;
 
 // invalid name test
 const badName = {
@@ -57,7 +64,26 @@ const badState = {
     state: invalidState,
 }
 
+describe(myForm, () => {
 
+    // const init = () => {
+    //     render(
+    //       <Provider store={store}>
+    //         <MemoryRouter>
+    //           <ProjectForm project={project} onCancel={handleCancel} />
+    //         </MemoryRouter>
+    //       </Provider>
+    //     );
+    // }
+
+    beforeEach(() => {
+
+    });
+
+    test("form fields render with initial values", () => {
+        return undefined;
+    });
+})
 
 
 

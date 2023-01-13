@@ -1,0 +1,171 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders learn react link 1`] = `
+<DocumentFragment>
+  <div
+    class="d-flex wrapper vh-100 py-4"
+  >
+    <div
+      class="h-100 justify-content-center align-items-center form"
+    >
+      <div
+        class="title"
+      >
+        Welcome
+      </div>
+      <div
+        class="subtitle"
+      >
+        Please complete the form to sign up!
+      </div>
+      <form
+        class=""
+        id="theForm"
+        role="theForm"
+      >
+        <div
+          class="ic1 mb-3"
+        >
+          <label
+            class="text-white form-label"
+            for="formBasicName"
+          >
+            Name
+          </label>
+          <input
+            class="form-control"
+            id="formBasicName"
+            name="name"
+            placeholder="Enter first and last name"
+            role="nameInput"
+            type="name"
+            value=""
+          />
+          <div
+            class="invalid-feedback"
+          >
+            Please enter your name
+          </div>
+        </div>
+        <div
+          class="mb-3"
+        >
+          <label
+            class="text-white form-label"
+            for="formBasicEmail"
+          >
+            Email address
+          </label>
+          <input
+            class="form-control"
+            id="formBasicEmail"
+            name="email"
+            placeholder="Enter email"
+            role="emailInput"
+            type="text"
+            value=""
+          />
+          <small
+            class="text-muted form-text"
+          >
+            We'll never share your email with anyone else.
+          </small>
+          <div
+            class="invalid-feedback"
+          >
+            Please enter a valid email
+          </div>
+        </div>
+        <div
+          class="mb-3"
+        >
+          <label
+            class="text-white form-label"
+            for="formBasicPassword"
+          >
+            Password
+          </label>
+          <input
+            class="form-control"
+            id="formBasicPassword"
+            name="password"
+            placeholder="Password"
+            role="passwordInput"
+            type="password"
+            value=""
+          />
+          <small
+            class="text-muted form-text"
+          >
+            Passowrd must be at least 6 characters long.
+          </small>
+          <div
+            class="invalid-feedback"
+          >
+            Please enter a valid password
+          </div>
+        </div>
+        <div
+          class="ic2"
+        >
+          <label
+            class="text-white form-label"
+          >
+            Occupation
+          </label>
+          <select
+            class="text-center form-select"
+            name="occupation"
+            role="occupationInput"
+          >
+            <option>
+              -- Select Occupation --
+            </option>
+          </select>
+          <div
+            class="invalid-feedback"
+          >
+            Please select an occupation
+          </div>
+        </div>
+        <div
+          class="ic1"
+        >
+          <label
+            class="text-white form-label"
+          >
+            State
+          </label>
+          <select
+            class="text-center form-select"
+            name="state"
+            role="stateInput"
+          >
+            <option>
+              -- Select State of residence --
+            </option>
+            <option
+              value="0"
+            />
+          </select>
+          <div
+            class="invalid-feedback"
+          >
+            Please enter a state
+          </div>
+        </div>
+        <div
+          class="bottom"
+        >
+          <button
+            class="submit btn btn-primary"
+            type="submit"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;

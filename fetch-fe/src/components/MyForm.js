@@ -193,15 +193,13 @@ class MyForm extends React.Component {
         });
     };
 
-
-
     render() {
         const { theData } = this.state;
         return (
             <div className="h-100 justify-content-center align-items-center form">
                 <div className="title">Welcome</div>
                 <div className="subtitle">Please complete the form to sign up!</div>
-                <Form onSubmit={this.handleSubmit}>
+                <Form id="theForm" role="theForm" onSubmit={this.handleSubmit}>
 
                     {/* name */}
                     <Form.Group className="ic1 mb-3" controlId="formBasicName" >
@@ -210,6 +208,7 @@ class MyForm extends React.Component {
                             type="name"
                             value={this.state.name}
                             placeholder="Enter first and last name"
+                            role="nameInput"
                             onChange={this.handleChange} isInvalid={this.state.nameError} />
                         <Form.Control.Feedback type="invalid">
                             Please enter your name
@@ -223,6 +222,7 @@ class MyForm extends React.Component {
                             type="text"
                             value={this.state.email}
                             placeholder="Enter email"
+                            role="emailInput"
                             onChange={this.handleChange} isInvalid={this.state.emailError} />
                         <Form.Text className="text-muted">
                             We'll never share your email with anyone else.
@@ -239,6 +239,7 @@ class MyForm extends React.Component {
                             type="password"
                             value={this.state.password}
                             placeholder="Password"
+                            role="passwordInput"
                             onChange={this.handleChange} isInvalid={this.state.passwordError} />
                         <Form.Text className="text-muted">
                             Passowrd must be at least 6 characters long.
@@ -254,6 +255,7 @@ class MyForm extends React.Component {
                         <Form.Select name="occupation"
                             className="text-center"
                             value={this.state.occupation}
+                            role="occupationInput"
                             onChange={this.handleChange} isInvalid={this.state.occupationError}>
                             <option disabled={this.state.occupation}>-- Select Occupation --</option>
                             {theData.occupations.map((item, i) => (
@@ -272,6 +274,7 @@ class MyForm extends React.Component {
                         <Form.Label className="text-white">State</Form.Label>
                         <Form.Select name="state" className="text-center"
                             value={this.state.state}
+                            role="stateInput"
                             onChange={this.handleChange} isInvalid={this.state.stateError}>
                             <option disabled={this.state.state}>-- Select State of residence --</option>
                             {theData.states.map((item, i) => (
