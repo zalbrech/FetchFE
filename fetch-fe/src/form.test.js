@@ -1,6 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import MyForm from './components/MyForm.js';
+import userEvent from "@testing-library/user-event";
+// import { fetch } from 'node-fetch';
 
 const validName = "Joe";
 const validEmail = "thesmile123@gmail.com";
@@ -67,29 +69,73 @@ const badState = {
 }
 
 describe(MyForm, () => {
+    // beforeEach(() => {
+    //     render(<MyForm/>);
+    // });
 
-    // const init = () => {
-    //     render(
-    //       <Provider store={store}>
-    //         <MemoryRouter>
-    //           <ProjectForm project={project} onCancel={handleCancel} />
-    //         </MemoryRouter>
-    //       </Provider>
-    //     );
-    // }
-
-    beforeEach(() => {
+    initBlank(() => {
         render(<MyForm/>);
     });
 
+    function initWithValues(theName, theEmail, thePassword, theOccupation, theState) {
+        render(<MyForm name={theName} email={theEmail} password={thePassword} occupation={theOccupation} state={theState}/>);
+    }
+
     test('on init, submit button renders', () => {
-        // const role = screen.g
+        initBlank();
         expect(screen.getByRole('formSubmitButton')).toBeInTheDocument();
     });
 
-    test("form fields render with initial values", () => {
-        
+    // test that form inputs can be changed
+
+    // name
+    test('name text can change', () => {
+        initBlank();
+        const input = screen.getByLabelText("Name");
+        fireEvent.change(input, { target: { value: 'Bob'} })
+        // expect(hasInputValue(input, "Bob")).toBe(true)
+        expect(input.value).toBe('Bob');
     });
+
+    // email
+    test('email text can change', () => {
+        initBlank();
+        const input = screen.getByLabelText("Email address");
+        fireEvent.change(input, { target: { value: 'thisEmail123'} });
+        expect(input.value).toBe('thisEmail123');
+    });
+
+    // password
+    test('pasword text can chagne', () => {
+        initBlank();
+        const input = screen.getByLabelText("Password");
+        fireEvent.change(input, { target: {value: 'mypassword'} });
+        expect(input.value).toBe('mypassword');
+    });
+
+    // occupation
+    test('occupation can change', () => {
+        const input = screen.getByTestId("occupation-test-id");
+        // fireEvent.change(input, { target: {value: 'Janitor'} });
+        userEvent.selectOptions(input, [
+            "Janitor",
+          ]);
+        expect(input.value).toBe('Janitor');
+    }); 
+
+    // state
+    test('state of residence can change', () => {
+        const input = screen.getByLabelText("State");
+        fireEvent.change(input, { target: {value: 'Wisconsin'} });
+        expect(input.value).toBe('Wisconsin');
+    });
+
+    //TODO: Write tests for input validation
+
+    // test("form fields render with values", () => {
+    //     const theForm = initWithValues(validName, validEmail, validPassword, validOccupation, validState);
+        
+    // });
 })
 
 

@@ -7,16 +7,16 @@ class MyForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
-            email: '',
-            password: '',
-            occupation: '',
-            state: '',
-            nameError: '',
-            passwordError: '',
-            emailError: '',
-            stateError: '',
-            occupationError: '',
+            name: this.props.name || '',
+            email: this.props.email || '',
+            password: this.props.password || '',
+            occupation: this.props.occupation || '',
+            state: this.props.state || '',
+            nameError: this.props.nameError || '',
+            passwordError: this.props.passwordError || '',
+            emailError: this.props.emailError || '',
+            stateError: this.props.stateError || '',
+            occupationError: this.props.occupationError || '',
             theData: {
                 occupations: [],
                 states: [
@@ -25,7 +25,7 @@ class MyForm extends React.Component {
                         abbreviation: '',
                     }
                 ]
-            },
+            } || this.props.theData,
         };
     }
 
@@ -256,6 +256,7 @@ class MyForm extends React.Component {
                             className="text-center"
                             value={this.state.occupation}
                             role="occupationInput"
+                            data-testid="occupation-test-id"
                             onChange={this.handleChange} isInvalid={this.state.occupationError}>
                             <option disabled={this.state.occupation}>-- Select Occupation --</option>
                             {theData.occupations.map((item, i) => (
@@ -275,6 +276,7 @@ class MyForm extends React.Component {
                         <Form.Select name="state" className="text-center"
                             value={this.state.state}
                             role="stateInput"
+                            data-testid="state-test-id"
                             onChange={this.handleChange} isInvalid={this.state.stateError}>
                             <option disabled={this.state.state}>-- Select State of residence --</option>
                             {theData.states.map((item, i) => (

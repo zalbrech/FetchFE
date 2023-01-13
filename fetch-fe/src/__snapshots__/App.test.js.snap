@@ -115,6 +115,7 @@ exports[`renders app snapshot 1`] = `
           </label>
           <select
             class="text-center form-select"
+            data-testid="occupation-test-id"
             name="occupation"
             role="occupationInput"
           >
@@ -133,11 +134,13 @@ exports[`renders app snapshot 1`] = `
         >
           <label
             class="text-white form-label"
+            for="State"
           >
             State
           </label>
           <select
             class="text-center form-select"
+            data-testid="state-test-id"
             name="state"
             role="stateInput"
           >
